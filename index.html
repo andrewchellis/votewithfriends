@@ -8,16 +8,46 @@
      <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
 
-<body style="height:100%;">
-    <div class="container" style="height:100%;">
+ <script>
+  
+ 
+ </script>
+
+
+  
+  <body style="height:100%;" class="red darken-4">
+
+  <script>
+  window.fbAsyncInit = function() {
+          FB.init({
+                    appId      : '575836192623895',
+                    xfbml      : true,
+                    status:     true,
+                    version    : 'v0.1'
+            });
+              FB.AppEvents.logPageView();
+                };
+
+  (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+      <div class="container red darken-1" style="height:100%;" >
     <header class="section">
-        <h1>Vote With Friends</h1>
+        <h1 class="center-align white-text">Vote With Friends</h1>
     </header>
-    
+
     <div class="divider"></div>
 
     <main class="section">
-    <a class="valign waves-effect waves-light btn-large">Sign In to Facebook</a>
+           <div class="fb-login-button" data-size="xlarge" data-show-faces="false"
+           data-auto-logout-link="false"></div> 
     </main>
 
     <footer></footer>
