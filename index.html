@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+<head>
+    <!-- jquery --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <!-- materialize Compiled and minified CSS --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+     <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+</head>
+
+ <script>
+  
+ 
+ </script>
+
+
+  
+  <body style="height:100%;" class="red darken-4">
+
+  <script>
+  window.fbAsyncInit = function() {
+          FB.init({
+                    appId      : '575836192623895',
+                    xfbml      : true,
+                    status:     true,
+                    version    : 'v0.1'
+            });
+              FB.AppEvents.logPageView();
+                };
+
+  (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+      <div class="container red darken-1" style="height:100%;" >
+    <header class="section">
+        <h1 class="center-align white-text">Vote With Friends</h1>
+    </header>
+
+    <div class="divider"></div>
+
+    <main class="section">
+           <div class="fb-login-button" data-size="xlarge" data-show-faces="false"
+           data-auto-logout-link="false"></div> 
+    </main>
+
+    <footer></footer>
+    </div>
+</body>
+
+</html>
