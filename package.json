@@ -1,0 +1,27 @@
+{
+  "name": "votewithfriends",
+  "version": "1.0.0",
+  "description": "Car pool with you facebook friends for the election!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewchellis/votewithfriends.git"
+  },
+  "keywords": [
+    "vote",
+    "facebook"
+  ],
+  "author": "Andrew Chellis, Thomas Moshier, Samuel David Bravo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewchellis/votewithfriends/issues"
+  },
+  "homepage": "https://github.com/andrewchellis/votewithfriends#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
