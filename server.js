@@ -3,27 +3,15 @@ var app = express();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('votewithfriends.db');
 
-db.serialize(function() {
-    db.run("CREATE TABLE lorem (info TEXT)");
-    var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-    for(var i=0;i<10;i++){
-        stmt.run("Ipsum "+i);
-    }
-    stmt.finalize();
-    db.each("SELECT rowid as id, info FROM lorem", function(err, row) {
-        if(err){
-            console.log('err');
-        }
-        console.log(row.id+": " + row.info);
-    });
-});
-db.close();
-
 const port = '80';
 
 app.get('/',function(req,res){
     console.log('Get request from '+req.ip);
     res.sendfile('index.html');
+});
+
+app.get('/googleAPI',function(req,res){
+    res.sendfile('findLocation.html');
 });
 
 app.post('/api/pollingLocations',function(req,res){
