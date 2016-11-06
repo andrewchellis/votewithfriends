@@ -49,35 +49,53 @@ function friendsubmit() {
   * @param {Object} response Response object returned by the API.
   * @param {Object} rawResponse Raw response from the API.
   */
-  function renderResults(response, rawResponse) {
-    var el = document.getElementById('results');
-    if (!response || response.error) {
-      el.appendChild(document.createTextNode(
-        'Error while trying to fetch polling place'));
-        return;
-     }
-   var normalizedAddress = response.normalizedInput.line1 + ' ' +
-       response.normalizedInput.city + ', ' +
-       response.normalizedInput.state + ' ' +
-       response.normalizedInput.zip;
-   if (response.pollingLocations.length > 0) {
-     var pollingLocation = response.pollingLocations[0].address;
-     var pollingAddress = pollingLocation.locationName + ', ' +
-         pollingLocation.line1 + ' ' +
-         pollingLocation.city + ', ' +
-         pollingLocation.state + ' ' +
-         pollingLocation.zip;
-     var normEl = document.createElement('strong');
-     normEl.appendChild(document.createTextNode(
-         'Polling place for ' + normalizedAddress + ': '));
-     el.appendChild(normEl);
-     el.appendChild(document.createTextNode(pollingAddress));
-   } else {
-     el.appendChild(document.createTextNode(
-         'Could not find polling place for ' + normalizedAddress +
-           ' (Did you register to vote from this address?)'));
-   }
- }
+       function renderResults(response, rawResponse) {
+         if (!response || response.error) {
+             $("#alternative").show();
+            return;
+         }
+        var normalizedAddress = response.normalizedInput.line1 + ' ' +
+            response.normalizedInput.city + ', ' +
+            response.normalizedInput.state + ' ' +
+            response.normalizedInput.zip;
+        if (response.pollingLocations.length > 0) {
+          var pollingLocation = response.pollingLocations[0].address;
+          var pollingAddress = pollingLocation.locationName + ', ' +
+              pollingLocation.line1 + ' ' +
+              pollingLocation.city + ', ' +
+              pollingLocation.state + ' ' +
+              pollingLocation.zip;
+          $("#results").show();
+          $("#step3").show();
+          var el = document.getElementById('resultsinfo');
+          el.appendChild(document.createTextNode(pollingAddress));
+          initMap(pollingAddress);
+        }
+        else {
+             $("#alternative").show();
+            return;
+        }
+      }
+
+       function initMap(address) {
+         var geocoder = new google.maps.Geocoder();
+         geocoder.geocode({'address': address}, function(results, status) {
+           if (status === 'OK') {
+             var resultsMap = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+             });
+             resultsMap.setCenter(results[0].geometry.location);
+             var marker = new google.maps.Marker({
+               map: resultsMap,
+               position: results[0].geometry.location
+             });
+           }
+           else {
+             alert('Congrats you broke it. Geocode was not successful for the following reason: ' + status);
+           }
+         });
+       }
+
  /**
   * Build and execute request to look up voter info for provided address.
   * @param {string} address Address for which to fetch voter info.
@@ -178,7 +196,8 @@ function friendsubmit() {
                                     <a href="#step3" class="waves-effect waves-light
                                     btn-large" id="submitaddress"
                                     onclick="return load()">Submit</a>
-                                    <div id="results"></div>
+                                    <div id="results" style="width:100%;
+                                        height:500px;"></div>
                                 </div>
                             </div>
                         </div> <!-- end card -->
@@ -187,6 +206,36 @@ function friendsubmit() {
 
             </div> <!-- end of step2 -->
 
+
+            <div id="alternative" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">
+                                    We Could Not Find Polling Station</span>
+                                <p>No one is registered to vote from your
+                                location. Are you a registered voter?</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+            </div> <!-- end of alternative -->
+
+            <div id="results" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">
+                                    Your Polling Station</span>
+                                <p id="resultsinfo"><p>
+                                <div id="map"></div>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+            </div> <!-- end of results -->
 
             <div id="step3" class="section scrollspy">
                 <div class="row">
