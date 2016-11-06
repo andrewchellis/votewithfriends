@@ -2,16 +2,23 @@ var express = require('express');
 var app = express();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('votewithfriends.db');
+app.use(express.static(__dirname));
 
 const port = '80';
 
 app.get('/',function(req,res){
     console.log('Get request from '+req.ip);
-    res.sendfile('index.html');
+    res.sendFile(___dirname+'index.html');
+});
+app.get('/fbScripts.js',function(req,res){
+    res.sendFile(___dirname+'fbScripts.js');
+});
+app.get('/googScripts.js',function(req,res){
+    res.sendFile(___dirname+'googScripts.js');
 });
 
 app.get('/googleAPI',function(req,res){
-    res.sendfile('findLocation.html');
+    res.sendFile(___dirname+'findLocation.html');
 });
 
 app.post('/api/pollingLocations',function(req,res){

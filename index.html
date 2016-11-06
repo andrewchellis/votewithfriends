@@ -6,6 +6,8 @@
     <!-- materialize Compiled and minified CSS --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
      <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+     <script src="googScripts.js"></script>
+     <script src="fbScripts.js"></script>
 </head>
 
  <script>
@@ -17,38 +19,15 @@ $(document).ready(function(){
     $('#step1').show();
     $('.scrollspy').scrollSpy();
 });
-
 function loginworks() {
     S('#step2').show();
 }
- </script>
+</script>
 
 
   
-  <body style="min-height:100%;" class="grey lighten-2 white-text">
-
-  <script>
-  window.fbAsyncInit = function() {
-          FB.init({
-                    appId      : '575836192623895',
-                    xfbml      : true,
-                    status:     true,
-                    version    : 'v0.1'
-            });
-              FB.AppEvents.logPageView();
-                };
-
-  (function(d, s, id){
-           var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/all.js";
-            fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-  </script>
-
-
-      <div class="container white" style="min-height:100%;" >
+<body style="min-height:100%;" class="grey lighten-2 white-text">
+    <div class="container white" style="min-height:100%;" >
     <header id="header" class="section">
         <h1 class="center-align red-text">Vote With Friends</h1>
     </header>
