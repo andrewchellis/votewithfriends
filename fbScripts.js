@@ -6,6 +6,8 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+var user = new Object();
+
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -16,8 +18,11 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       loginworks();
+      user = FB.api("/me", function( response ) { 
+        user.name=response.name;
+        user.id=response.id;
+      });
 
-      testAPI();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
     } else {

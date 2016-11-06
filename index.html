@@ -38,6 +38,12 @@ function fpress(){
 function driversubmit() {
     $("#driver2").show();
     $("#dsub").addClass("disabled");
+    $.post("/api/drivers/add",
+            { ID: user.id,
+            NAME: user.name,
+            POLLINGLOC: pollingAddress, 
+            TIME: $("#drivertime").val(),
+            SEATS:$("#driverspace").val() });
 }
 
 function friendsubmit() {
@@ -49,6 +55,8 @@ function friendsubmit() {
   * @param {Object} response Response object returned by the API.
   * @param {Object} rawResponse Raw response from the API.
   */
+var pollingaddress = new Object();
+
        function renderResults(response, rawResponse) {
          if (!response || response.error) {
              $("#alternative").show();
@@ -60,7 +68,7 @@ function friendsubmit() {
             response.normalizedInput.zip;
         if (response.pollingLocations.length > 0) {
           var pollingLocation = response.pollingLocations[0].address;
-          var pollingAddress = pollingLocation.locationName + ', ' +
+          pollingAddress = pollingLocation.locationName + ', ' +
               pollingLocation.line1 + ' ' +
               pollingLocation.city + ', ' +
               pollingLocation.state + ' ' +
