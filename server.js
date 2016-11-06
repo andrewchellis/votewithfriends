@@ -85,22 +85,14 @@ app.post('/api/checkRide',function(req,res){
     db.all("SELECT * FROM drivers",function(err,rows){
         if(!err){
             rows.forEach(function(row){
-                console.log("row"+row);
                 if(row.POLLINGLOC===req.body.loc){
-                    console.log("Location match");
                     req.body.friendIDS.forEach(function(id){
-                        console.log(id":"row.ID);
-                        if(id===row.ID){
-                            console.log("ID match");
+                        if(id==row.ID){;
                             possibleDrivers.push(row);
                         }
                     });
                 }
             });
-            console.log("ROWS:");
-            console.log(rows);
-            console.log("DRIVERS:");
-            console.log(possibleDrivers);
             res.json(possibleDrivers);
         }
         else{
