@@ -23,6 +23,7 @@ $(document).ready(function(){
 
 function loginworks() {
     $('#step2').show();
+    friends();
 }
 
 function dpress(){
@@ -32,7 +33,19 @@ function dpress(){
 
 function fpress(){
     $("#friend1").show();
-    $("#d, #f").addClass("disabled");  
+    $("#d, #f").addClass("disabled");
+    $.post("/api/checkRide",
+        { friendIDS: friendids,
+          loc: pollingAddress})
+     .done(function( data ) {
+         var i = 0;
+         data.forEach(function(dude) {
+            i = i+1;
+            $("#radios").append("<p><input name='x' type='radio' id='r" + i + 
+                    "'><label for='r'" + i + "'>" + dude.name + " ,leaves at "
+                    + dude.time + "</label></p>" );
+         });
+     });
 }
 
 function driversubmit() {
@@ -50,8 +63,9 @@ function friendsubmit() {
     $("#friend2").show();
     $("#fsub").addClass("disabled");
     $.post("/api/friends/add",
-            { 
-            })
+            { id: userid,
+              name: username,
+              driver:  driverid });
 }
  /**
   * Render results in the DOM.
@@ -363,7 +377,9 @@ var pollingaddress = new Object();
                                 <span class="card-title center-align">Join a Friend</span>
                                 <p>Here's a list of your friends and when they're driving to the
                                 polling station.</p>
-
+                                <br>
+                                <div id="radios"></div>
+                                <br>
                                 <a class="waves-effect waves-ligt btn-large"
                                     href="#friend2" id="fsub" onclick="return friendsubmit();">
                                 Submit</a>
