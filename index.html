@@ -41,6 +41,10 @@ function driversubmit() {
     $("#dsub").addClass("disabled");
 }
 
+function friendsubmit() {
+    $("#friend2").show();
+    $("#fsub").addClass("disabled");
+}
  /**
   * Render results in the DOM.
   * @param {Object} response Response object returned by the API.
@@ -172,7 +176,7 @@ function driversubmit() {
                                 <div class="input-field">
                                     <input id="autocomplete" type="text">
                                     <br>
-                                    <a class="waves-effect waves-light
+                                    <a href="#step3" class="waves-effect waves-light
                                     btn-large" id="submitaddress"
                                     onclick="return load()">Submit</a>
                                     <div id="results"></div>
@@ -195,11 +199,11 @@ function driversubmit() {
                                 someone to take you to the polling station?</p>
                                 <br>
                                 <a class="waves-effect waves-light btn-large" 
-                                    id="f" onclick="return dpress();">
+                                    href="#driver1" id="f" onclick="return dpress();">
                                 I want to drive my friends.</a>
                                 <br><br>
                                 <a class="waves-effect waves-light btn-large" 
-                                    id="f" onclick="return fpress()">
+                                    href="#friend1" id="f" onclick="return fpress()">
                                 I am looking for a ride.</a>
                             </div>
                         </div> <!-- end card -->
@@ -270,7 +274,7 @@ function driversubmit() {
                                 </div>
                                 <br>
                                 <a class="waves-effect waves-light btn-large" 
-                                    id="dsub" onclick="return driversubmit();">
+                                    href="#driver2" id="dsub" onclick="return driversubmit();">
                                 Submit</a>
                             </div>
                         </div> <!-- end card -->
@@ -302,6 +306,10 @@ function driversubmit() {
                                 <span class="card-title center-align">Join a Friend</span>
                                 <p>Here's a list of your friends and when they're driving to the
                                 polling station.</p>
+
+                                <a class="waves-effect waves-ligt btn-large"
+                                    href="#friend2" id="fsub" onclick="return friendsubmit();">
+                                Submit</a>
                             </div>
                         </div> <!-- end card -->
                     </div>
@@ -314,7 +322,8 @@ function driversubmit() {
                     <div class="col s12 m8 offset-m2">
                         <div class="card teal">
                             <div class="card-content">
-                                <span class="card-title center-align">Notify Your Friends</span>
+                                <span class="card-title center-align">Notify
+                                    Your Other Friends</span>
                                 <p>Let your friends know that you're going to go vote!</p>
                             </div>
                         </div> <!-- end card -->
