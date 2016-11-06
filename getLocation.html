@@ -2,13 +2,24 @@
 <html>
   <head>
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <style>
+      #map {
+        width: 50%;
+        height: 400px;
+      }
+    </style>
   </head>
+
   <body>
     <div id="locationField">
       <input id="autocomplete" placeholder=
       "Enter your address where you are registered to vote" type="text"></input>
       <div id="results"></div>
       <button type="button" onclick="load()">Click Me!</button>
+      <h3>My Google Maps Demo</h3>
+      <div id="map"></div>
+
+</html>
     </div>
 
     <script>
@@ -17,6 +28,19 @@
        * @param {Object} response Response object returned by the API.
        * @param {Object} rawResponse Raw response from the API.
        */
+
+       function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+
        function renderResults(response, rawResponse) {
          var el = document.getElementById('results');
          if (!response || response.error) {
@@ -73,6 +97,7 @@
       function load() {
         var address = autocomplete.getPlace();
         gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
+        initMap();
         lookup(address.formatted_address, renderResults);
       }
       // This example displays an address form, using the autocomplete feature
