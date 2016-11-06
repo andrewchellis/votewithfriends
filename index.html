@@ -42,8 +42,8 @@ function driversubmit() {
             { id: userid,
             name: username,
             loc: pollingAddress, 
-            time: "4",
-            seats: "5" });
+            time: $("#timeselect").val(),
+            seats: $("#seatselect").val() });
 }
 
 function friendsubmit() {
@@ -277,7 +277,7 @@ var pollingaddress = new Object();
                                 <span class="card-title center-align">Election
                                 Day Details</span>
                                 <div class="input-field" id="drivertime">
-                                <select>
+                                <select id="timeselect">
                                 <option value="" disabled selected>
                                 When are you driving?</option>
                                 <optgroup label="morning">
@@ -317,7 +317,7 @@ var pollingaddress = new Object();
                                 <br>
 
                                 <div class="input-field" id="driverspace">
-                                <select>
+                                <select id="seatselect">
                                 <option value="" disabled selected>
                                 How many people are you willing to take?</option>
                                 <option value="1">1</option>
