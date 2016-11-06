@@ -8,6 +8,7 @@
       <input id="autocomplete" placeholder=
       "Enter your address where you are registered to vote" type="text"></input>
       <div id="results"></div>
+      <button type="button" onclick="load()">Click Me!</button>
     </div>
 
     <script>
@@ -70,7 +71,8 @@
       /**
        * Initialize the API client and make a request.
        */
-      function load(address) {
+      function load() {
+        var address = autocomplete.getPlace();
         gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
         lookup(address, renderResults);
       }
@@ -88,9 +90,6 @@
         autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
         {types: ['geocode']});
-
-        var address = autocomplete.getPlace();
-        load(address);
       }
 
     </script>
