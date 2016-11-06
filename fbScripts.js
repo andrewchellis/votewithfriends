@@ -6,7 +6,8 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-var user = new Object();
+var username = new Object();
+var userid = new Object();
 
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -19,8 +20,8 @@ function statusChangeCallback(response) {
       // Logged into your app and Facebook.
       loginworks();
       user = FB.api("/me", function( response ) { 
-        user.name=response.name;
-        user.id=response.id;
+        username=response.name;
+        userid=response.id;
       });
 
     } else if (response.status === 'not_authorized') {
