@@ -12,9 +12,15 @@
   
 $(document).ready(function(){
 
-$('.scrollspy').scrollSpy();
-
+    $('.section').hide();
+    $('#header').show();
+    $('#step1').show();
+    $('.scrollspy').scrollSpy();
 });
+
+function loginworks() {
+    S('#step2').show();
+}
  </script>
 
 
@@ -43,7 +49,7 @@ $('.scrollspy').scrollSpy();
 
 
       <div class="container white" style="min-height:100%;" >
-    <header class="section">
+    <header id="header" class="section">
         <h1 class="center-align red-text">Vote With Friends</h1>
     </header>
 
@@ -62,7 +68,7 @@ $('.scrollspy').scrollSpy();
                 data-size="xlarge" 
                 data-show-faces="false"
                 data-scope="user_friends, public_profile"
-                onlogin=""
+                onlogin="loginworks"
                 data-auto-logout-link="true"></div>
         </div>
         </div> <!--end card -->
