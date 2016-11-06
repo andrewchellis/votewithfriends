@@ -83,24 +83,18 @@ app.post('/api/friends/add',function(req,res){
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = [];
     console.log(req.body);
-    var i =0;
-    db.serialize(function(){
-        req.body.friendIDS.forEach(function(id){
-            console.log(i);
-            db.get("SELECT * FROM drivers WHERE ID=$ID AND POLLINGLOC=$LOC",{
-                $ID: id,
-                $LOC: req.body.loc
-            }, function(err,row){
-                console.log(row);
-                if(!err){
-                    console.log(row);
-                    possibleDrivers.push(row);
-                }
-            });
+    db.all("SELECT * FROM drivers WHERE ID IN $IDS AND POLLINGLOC=$LOC",
+    {$IDS: req.body.friendIDS,
+        $LOC: req.body.loc
+    },function(err,rows){
+        rows.forEach(function(row){
+            if(row!===undefined){
+                possibleDrivers.push(row);
+            }
         });
+        console.log(possibleDrivers);
+        res.json(possibleDrivers);
     });
-    console.log(possibleDrivers);
-    res.json(possibleDrivers);
 });
 
 
