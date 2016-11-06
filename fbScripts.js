@@ -6,7 +6,7 @@ window.fbAsyncInit = function() {
         cookie:     true,
         version    : 'v1.0'
     });
-    FB.AppEvents.logPageView();
+    console.log(FB);
 };
 
 (function(d, s, id){
