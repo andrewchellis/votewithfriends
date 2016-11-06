@@ -15,35 +15,48 @@
 
 $(document).ready(function(){
 
-    //$('.section').hide();
+    $('.section').hide();
     $('#header').show();
     $('#step1').show();
+    $('#step2').show();
+    $('#step3').show();
     $('.scrollspy').scrollSpy();
 });
 function loginworks() {
     $('#step2').show();
 }
-    </script>
+
+function dpress(){
+    $("#driver1").show();
+    $("#d, #f").addClass("disabled");  
+}
+
+function fpress(){
+    $("#friend1").show();
+    $("#d, #f").addClass("disabled");  
+}
+</script>
 
 
 
-    <body style="min-height:100%;" class="grey lighten-2 white-text">
-        <div class="container white" style="min-height:100%;" >
+    <body style="min-height:100%;" class="teal darken-2 white-text">
+        <div class="container" style="min-height:100%;" >
             <header id="header" class="section">
-                <h1 class="center-align red-text">Vote With Friends</h1>
+                <h1 class="center-align">Vote With Friends</h1>
             </header>
 
             <main>
             <div id="step1" class="section scrollspy">   
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card blue">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">
-                                    Log Into FaceBook</span>
-                                <p>Vote With Friends connects you with your 
+                                    Log Into Facebook</span>
+                                <p>Vote With Friends helps you arrange rides 
+                                with your 
                                 friends that will vote at the same polling 
-                                location as you. Log into FaceBook below to get
+                                location as you. Log into Facebook below to get
                                 started.</p>
                                 <div class="fb-login-button"
                                      style="width:50%; margin: 2em auto;" 
@@ -61,7 +74,7 @@ function loginworks() {
             <div id="step2" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card red">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">
                                     Find Your Polling Station</span>
@@ -83,11 +96,19 @@ function loginworks() {
             <div id="step3" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card blue">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Are You Driving?</span>
-                                <p>Do you want to drive your friends, or are you looking for a
-                                ride?</p>
+                                <p>Do you want to be a driver, or do you need
+                                someone to take you to the polling station?</p>
+                                <br>
+                                <a class="waves-effect waves-light btn-large" 
+                                    id="f" onclick="return fpress();">
+                                I want to drive my friends.</a>
+                                <br><br>
+                                <a class="waves-effect waves-light btn-large" 
+                                    id="f" onclick="return dpress()">
+                                I am looking for a ride.</a>
                             </div>
                         </div> <!-- end card -->
                     </div>
@@ -98,7 +119,7 @@ function loginworks() {
             <div id="driver1" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card red">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Driving Details?</span>
                                 <p>When are you driving?</p>
@@ -114,7 +135,7 @@ function loginworks() {
             <div id="driver2" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card blue">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Notify Your Friends</span>
                                 <p>Let your friends know that you can drive them to vote!</p>
@@ -128,7 +149,7 @@ function loginworks() {
             <div id="friend1" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card red">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Join a Friend</span>
                                 <p>Here's a list of your friends and when they're driving to the
@@ -143,7 +164,7 @@ function loginworks() {
             <div id="friend2" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card blue">
+                        <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Notify Your Friends</span>
                                 <p>Let your friends know that you're going to go vote!</p>
