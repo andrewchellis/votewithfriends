@@ -1,147 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>Vote With Friends</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-    <style>
-      #locationField, #controls {
-        position: relative;
-        width: 480px;
-      }
-      #autocomplete {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 99%;
-      }
-      .label {
-        text-align: right;
-        font-weight: bold;
-        width: 100px;
-        color: #303030;
-      }
-      #address {
-        border: 1px solid #000090;
-        background-color: #f0f0ff;
-        width: 480px;
-        padding-right: 2px;
-      }
-      #address td {
-        font-size: 10pt;
-      }
-      .field {
-        width: 99%;
-      }
-      .slimField {
-        width: 80px;
-      }
-      .wideField {
-        width: 200px;
-      }
-      #locationField {
-        height: 20px;
-        margin-bottom: 2px;
-      }
-    </style>
   </head>
-
   <body>
-
-    <!-- Puts things into the table after retrieving them from Google for now -->
     <div id="locationField">
-      <input id="autocomplete" placeholder="Enter your address where you are registered to vote"
-             onFocus="geolocate()" type="text"></input>
+      <input id="autocomplete" placeholder=
+      "Enter your address where you are registered to vote" type="text"></input>
+      <div id="results"></div>
+      <button type="button" onclick="load()">Click Me!</button>
     </div>
 
-    <table id="address">
-      <tr>
-        <td class="label">Street address</td>
-        <td class="slimField"><input class="field" id="street_number"
-              disabled="true"></input></td>
-        <td class="wideField" colspan="2"><input class="field" id="route"
-              disabled="true"></input></td>
-      </tr>
-      <tr>
-        <td class="label">City</td>
-        <td class="wideField" colspan="3"><input class="field" id="locality"
-              disabled="true"></input></td>
-      </tr>
-      <tr>
-        <td class="label">State</td>
-        <td class="slimField"><input class="field"
-              id="administrative_area_level_1" disabled="true"></input></td>
-        <td class="label">Zip code</td>
-        <td class="wideField"><input class="field" id="postal_code"
-              disabled="true"></input></td>
-      </tr>
-      <tr>
-        <td class="label">Country</td>
-        <td class="wideField" colspan="3"><input class="field"
-              id="country" disabled="true"></input></td>
-      </tr>
-    </table>
-
-
     <script>
+      /**
+       * Render results in the DOM.
+       * @param {Object} response Response object returned by the API.
+       * @param {Object} rawResponse Raw response from the API.
+       */
+       function renderResults(response, rawResponse) {
+         var el = document.getElementById('results');
+         if (!response || response.error) {
+           el.appendChild(document.createTextNode(
+             'Error while trying to fetch polling place'));
+             return;
+          }
+        var normalizedAddress = response.normalizedInput.line1 + ' ' +
+            response.normalizedInput.city + ', ' +
+            response.normalizedInput.state + ' ' +
+            response.normalizedInput.zip;
+        if (response.pollingLocations.length > 0) {
+          var pollingLocation = response.pollingLocations[0].address;
+          var pollingAddress = pollingLocation.locationName + ', ' +
+              pollingLocation.line1 + ' ' +
+              pollingLocation.city + ', ' +
+              pollingLocation.state + ' ' +
+              pollingLocation.zip;
+          var normEl = document.createElement('strong');
+          normEl.appendChild(document.createTextNode(
+              'Polling place for ' + normalizedAddress + ': '));
+          el.appendChild(normEl);
+          el.appendChild(document.createTextNode(pollingAddress));
+        } else {
+          el.appendChild(document.createTextNode(
+              'Could not find polling place for ' + normalizedAddress +
+                ' (Did you register to vote from this address?)'));
+        }
+      }
+      /**
+       * Build and execute request to look up voter info for provided address.
+       * @param {string} address Address for which to fetch voter info.
+       * @param {function(Object)} callback Function which takes the
+       *     response object as a parameter.
+       */
+       function lookup(address, callback) {
+       /**
+         * @type {number}
+         */
+        /**
+         * Request object for given parameters.
+         * @type {gapi.client.HttpRequest}
+         */
+          var req = gapi.client.request({
+              'path' : '/civicinfo/v2/voterinfo',
+              'params' : {'address' : address}
+          });
+          req.execute(callback);
+      }
+
+      /**
+       * Initialize the API client and make a request.
+       */
+      function load() {
+        var address = autocomplete.getPlace();
+        gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
+        lookup(address.formatted_address, renderResults);
+      }
       // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.
-
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-      var placeSearch, autocomplete;
-      var componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'short_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-      };
-
+      var autocomplete;
       function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-            {types: ['geocode']});
-
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-      }
-
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-
-        for (var component in componentForm) {
-          document.getElementById(component).value = '';
-          document.getElementById(component).disabled = false;
-        }
-
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-          var addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType).value = val;
-          }
-        }
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+        {types: ['geocode']});
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=KEYHERE&libraries=places&callback=initAutocomplete"
-        async defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE&libraries=places&callback=initAutocomplete"
+      async defer></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
   </body>
 </html>
