@@ -67,11 +67,12 @@ function driversubmit() {
             time: $("#timeselect").val(),
             seats: $("#seatselect").val() });
 }
+var driverid = new Object[];
 
 function friendsubmit() {
     $("#friend2").show();
     $("#fsub").addClass("disabled");
-    var driverid = $("input[name=x]:checked").attr('id');
+    driverid = $("input[name=x]:checked").attr('id');
     $.post("/api/friends/add",
             { id: userid,
               name: username,
@@ -81,10 +82,17 @@ function friendsubmit() {
 function driverpost() {
     FB.ui({
         method: 'share',
-        display: 'popup',
-        href: 'votewithfriends.org',
+        href: 'http://votewithfriends.org',
     }, function(response){}
     );
+}
+
+function friendpost() {
+    FB.ui({
+    method: 'send',
+    link: 'http://votewithfriends.org',
+    to: driverid
+    });
 }
  /**
   * Render results in the DOM.
@@ -419,8 +427,11 @@ var pollingaddress = new Object();
                         <div class="card teal">
                             <div class="card-content">
                                 <span class="card-title center-align">Notify
-                                    Your Other Friends</span>
-                                <p>Let your friends know that you're going to go vote!</p>
+                                    Your Friend</span>
+                                <p>Let your friend know that you'd like a ride!</p>
+                                <a class="waves-effect waves-light btn-large"
+                                    id="friendfb" onclick="return friendpost();">
+                                    Message Friend</a>
                             </div>
                         </div> <!-- end card -->
                     </div>
