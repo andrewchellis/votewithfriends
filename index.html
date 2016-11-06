@@ -39,11 +39,16 @@ function fpress(){
         { friendIDS: friendids,
           loc: pollingAddress})
      .done(function( data ) {
+         if(data.length === 0) {
+             $("#radios").append("<p>We're sorry, none of your friends are" +
+                     "driving to that polling station. Please check back later!< /p>")
+             return;
+         }
          var i = 0;
          data.forEach(function(dude) {
             i = i+1;
-            $("#radios").append("<p><input name='x' type='radio' class='white-text' id='r" + i + 
-                    "'><label for='r'" + i + "'>" + dude.NAME + " ,leaves at "
+            $("#radios").append("<p><input name='x' type='radio' id='r" + i + 
+                    "'><label class='white-text' for='r'" + i + "'>" + dude.NAME + " ,leaves at "
                     + dude.TIME + "</label></p>" );
          });
      });
@@ -297,35 +302,35 @@ var pollingaddress = new Object();
                                 <option value="" disabled selected>
                                 When are you driving?</option>
                                 <optgroup label="morning">
-                                <option value="0630">6:30 a.m.</option>
-                                <option value="0700">7:00 a.m.</option>
-                                <option value="0730">7:30 a.m.</option>
-                                <option value="0800">8:00 a.m.</option>
-                                <option value="0830">8:30 a.m.</option>
-                                <option value="0900">9:00 a.m.</option>
-                                <option value="0900">9:30 a.m.</option>
-                                <option value="1000">10:00 a.m.</option>
-                                <option value="1030">10:30 a.m.</option>
-                                <option value="1100">11:00 a.m.</option>
-                                <option value="1130">11:30 a.m.</option>
+                                <option value="06:30 a.m">6:30 a.m.</option>
+                                <option value="07:00 a.m.">7:00 a.m.</option>
+                                <option value="07:30 a.m.">7:30 a.m.</option>
+                                <option value="08:00 a.m.">8:00 a.m.</option>
+                                <option value="08:30 a.m.">8:30 a.m.</option>
+                                <option value="09:00 a.m.">9:00 a.m.</option>
+                                <option value="09:00 a.m.">9:30 a.m.</option>
+                                <option value="10:00 a.m.">10:00 a.m.</option>
+                                <option value="10:30 a.m.">10:30 a.m.</option>
+                                <option value="11:00 a.m.">11:00 a.m.</option>
+                                <option value="11:30 a.m.">11:30 a.m.</option>
                                 </optgroup>
                                 <optgroup label="afternoon">
-                                <option value="1200">12:00 p.m.</option>
-                                <option value="1230">12:30 p.m.</option>
-                                <option value="1300">1:00 p.m.</option>
-                                <option value="1330">1:30 p.m.</option>
-                                <option value="1400">2:00 p.m.</option>
-                                <option value="1430">2:30 p.m.</option>
-                                <option value="1500">3:00 p.m.</option>
-                                <option value="1530">3:30 p.m.</option>
-                                <option value="1600">4:00 p.m.</option>
-                                <option value="1630">4:30 p.m.</option>
+                                <option value="12:00 p.m.">12:00 p.m.</option>
+                                <option value="12:30 p.m.">12:30 p.m.</option>
+                                <option value="13:00 p.m.">1:00 p.m.</option>
+                                <option value="13:30 p.m.">1:30 p.m.</option>
+                                <option value="14:00 p.m.">2:00 p.m.</option>
+                                <option value="14:30 p.m.">2:30 p.m.</option>
+                                <option value="15:00 p.m.">3:00 p.m.</option>
+                                <option value="15:30 p.m.">3:30 p.m.</option>
+                                <option value="16:00 p.m.">4:00 p.m.</option>
+                                <option value="16:30 p.m.">4:30 p.m.</option>
                                 </optgroup>
                                 <optgroup label="evening">
-                                <option value="1700">5:00 p.m.</option>
-                                <option value="1730">5:30 p.m.</option>
-                                <option value="1800">6:00 p.m.</option>
-                                <option value="1830">6:30 p.m.</option>
+                                <option value="17:00 p.m.">5:00 p.m.</option>
+                                <option value="17:30 p.m.">5:30 p.m.</option>
+                                <option value="18:00 p.m.">6:00 p.m.</option>
+                                <option value="18:30 p.m.">6:30 p.m.</option>
                                 </optgroup>
                                 </select>
                                 <label>Select a Time</label>
@@ -380,7 +385,7 @@ var pollingaddress = new Object();
                                 <p>Here's a list of your friends and when they're driving to the
                                 polling station.</p>
                                 <br>
-                                <div id="radios"></div>
+                                <form id="radios" action="#"></form>
                                 <br>
                                 <a class="waves-effect waves-ligt btn-large"
                                     href="#friend2" id="fsub" onclick="return friendsubmit();">
