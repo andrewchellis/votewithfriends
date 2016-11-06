@@ -48,7 +48,7 @@ app.post('/api/drivers',function(req,res){
         else{
             console.log("Failed to get drivers");
         }
-    }
+    });
 });
 
 app.post('/api/drivers/add',function(req,res){
