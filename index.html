@@ -17,6 +17,7 @@ $(document).ready(function(){
     $('.section').hide();
     $('#header').show();
     $('#step1').show();
+    $('#step2').show();
     $('.scrollspy').scrollSpy();
     $('select').material_select();
 });
@@ -42,8 +43,8 @@ function fpress(){
          data.forEach(function(dude) {
             i = i+1;
             $("#radios").append("<p><input name='x' type='radio' id='r" + i + 
-                    "'><label for='r'" + i + "'>" + dude.name + " ,leaves at "
-                    + dude.time + "</label></p>" );
+                    "'><label for='r'" + i + "'>" + dude.NAME + " ,leaves at "
+                    + dude.TIME + "</label></p>" );
          });
      });
 }
@@ -253,6 +254,7 @@ var pollingaddress = new Object();
                                 <span class="card-title center-align">
                                     Your Polling Station</span>
                                 <p id="resultsinfo"><p>
+                                <br>
                                 <div id="map" style="width:100%; height:400px;"></div>
                             </div>
                         </div> <!-- end card -->
