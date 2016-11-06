@@ -1,14 +1,3 @@
-window.fbAsyncInit = function() {
-    FB.init({
-        appId      : '575836192623895',
-        xfbml      : true,
-        status:     true,
-        cookie:     true,
-        version    : 'v1.0'
-    });
-    FB.AppEvents.logPageView();
-};
-
 (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
@@ -60,9 +49,18 @@ function statusChangeCallback(response) {
   //
   // These three cases are handled in the callback function.
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '575836192623895',
+        xfbml      : true,
+        status:     true,
+        cookie:     true,
+        version    : 'v1.0'
+    });
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+};
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
