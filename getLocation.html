@@ -53,19 +53,19 @@
        *     response object as a parameter.
        */
        function lookup(address, callback) {
- +       /**
- +         * @type {number}
- +         */
- +        /**
- +         * Request object for given parameters.
- +         * @type {gapi.client.HttpRequest}
- +         */
- +          var req = gapi.client.request({
- +              'path' : '/civicinfo/v2/voterinfo',
- +              'params' : {'address' : address}
- +          });
- +          req.execute(callback);
- +      }
+       /**
+         * @type {number}
+         */
+        /**
+         * Request object for given parameters.
+         * @type {gapi.client.HttpRequest}
+         */
+          var req = gapi.client.request({
+              'path' : '/civicinfo/v2/voterinfo',
+              'params' : {'address' : address}
+          });
+          req.execute(callback);
+      }
 
       /**
        * Initialize the API client and make a request.
