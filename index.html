@@ -103,7 +103,8 @@ var pollingaddress = new Object();
 
        function renderResults(response, rawResponse) {
          if (!response || response.error) {
-             $("#alternative").show();
+             $("#noaddr").show();
+             $("#alternative").hide();
             return;
          }
         var normalizedAddress = response.normalizedInput.line1 + ' ' +
@@ -121,12 +122,15 @@ var pollingaddress = new Object();
               pollingLocation.zip;
           $("#results").show();
           $("#step3").show();
+          $("#alternative").hide();
+          $("#noaddr").hide();
           var el = document.getElementById('resultsinfo');
           el.appendChild(document.createTextNode(pollingAddress));
           initMap(pollingAddress);
         }
         else {
              $("#alternative").show();
+             $("#noaddr").hide();
             return;
         }
       }
@@ -272,6 +276,22 @@ var pollingaddress = new Object();
                 </div>
             </div> <!-- end of alternative -->
 
+            <div id="noaddr" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">
+                                    That is not a Valid Address</span>
+                                <p>Please input an address using the Google
+                                autocomplete.</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+            </div> <!-- end of noaddr -->
+            
+            
             <div id="results" class="section scrollspy">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
