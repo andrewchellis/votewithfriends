@@ -81,9 +81,8 @@ function friendsubmit() {
 
 function driverpost() {
     FB.ui({
-        method: 'feed',
-        link: 'http://votewithfriends.org',
-        caption: 'Do you need a ride to your polling station? Join me at Vote With Friends!'
+        method: 'send',
+        link: 'http://votewithfriends.org'
     }, function(response){}
     );
 }
