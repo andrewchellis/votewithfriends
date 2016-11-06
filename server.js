@@ -69,7 +69,14 @@ app.post('/api/drivers/add',function(req,res){
 });
 
 app.post('/api/friends',function(req,res){
-    res.send('List of friends!');
+    db.all("SELECT * FROM friends",function(err,rows){
+        if(!err){
+            res.json(rows);
+        }
+        else{
+            console.log("Failed to get friends");
+        }
+    });
 });
 
 app.post('/api/friends/add',function(req,res){
