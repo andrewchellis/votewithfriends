@@ -52,12 +52,19 @@ app.post('/api/drivers',function(req,res){
 });
 
 app.post('/api/drivers/add',function(req,res){
-    db.run("INSERT OR IGNORE INTO drivers (ID, NAME, POLLINGLOC, TIME, SEATS) VALUES ($ID,$NAME,$POLLINGLOC,$TIME,$SEATS)",{
+    db.run("INSERT INTO drivers (ID, NAME, POLLINGLOC, TIME, SEATS) VALUES ($ID,$NAME,$POLLINGLOC,$TIME,$SEATS)",{
         $ID: req.id,
         $NAME: req.name,
         $POLLINGLOC: req.loc,
         $TIME: req.time,
         $SEATS: req.seats
+    },function(err){
+        if(err){
+            res.send("Failed to add row."+err);
+        }
+        else{
+            res.send("Row added!");
+        }
     });
 });
 
