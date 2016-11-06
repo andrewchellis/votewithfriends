@@ -39,11 +39,11 @@ function driversubmit() {
     $("#driver2").show();
     $("#dsub").addClass("disabled");
     $.post("/api/drivers/add",
-            { ID: userid,
-            NAME: username,
-            POLLINGLOC: pollingAddress, 
-            TIME: $("#drivertime").val(),
-            SEATS:$("#driverspace").val() });
+            { id: userid,
+            name: username,
+            loc: pollingAddress, 
+            time: $("#drivertime").val(),
+            seats:$("#driverspace").val() });
 }
 
 function friendsubmit() {
