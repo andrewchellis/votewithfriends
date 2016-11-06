@@ -42,13 +42,16 @@ function driversubmit() {
             { id: userid,
             name: username,
             loc: pollingAddress, 
-            time: $("#drivertime").val(),
-            seats:$("#driverspace").val() });
+            time: "4",
+            seats: "5" });
 }
 
 function friendsubmit() {
     $("#friend2").show();
     $("#fsub").addClass("disabled");
+    $.post("/api/friends/add",
+            { 
+            })
 }
  /**
   * Render results in the DOM.
