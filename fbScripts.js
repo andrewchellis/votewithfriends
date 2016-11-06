@@ -59,7 +59,6 @@ window.fbAsyncInit = function() {
         statusChangeCallback(response);
     });
 };
-
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
@@ -70,3 +69,9 @@ window.fbAsyncInit = function() {
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+function friends(){
+    console.log('Finding friends....!');
+    FB.api('/me/friends',function(response){
+        console.log(response);
+    });
+}

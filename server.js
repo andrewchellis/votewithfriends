@@ -41,11 +41,57 @@ app.post('/api/pollingLocations/add',function(req,res){
 });
 
 app.post('/api/drivers',function(req,res){
-    res.send('List of drivers')
+    db.all("SELECT * FROM drivers",function(err,rows){
+        if(!err){
+            res.json(rows);
+        }
+        else{
+            console.log("Failed to get drivers");
+        }
+    });
 });
 
 app.post('/api/drivers/add',function(req,res){
-    res.send('Add a driver');
+    db.run("INSERT INTO drivers (ID, NAME, POLLINGLOC, TIME, SEATS) VALUES ($ID,$NAME,$POLLINGLOC,$TIME,$SEATS)",{
+        $ID: req.id,
+        $NAME: req.name,
+        $POLLINGLOC: req.loc,
+        $TIME: req.time,
+        $SEATS: req.seats
+    },function(err){
+        if(err){
+            res.send("Failed to add row."+err);
+        }
+        else{
+            res.send("Row added!");
+        }
+    });
+});
+
+app.post('/api/friends',function(req,res){
+    res.send('List of friends!');
+});
+
+app.post('/api/friends/add',function(req,res){
+    db.run("INSERT OR IGNORE INTO friends (ID, NAME, DRIVER) VALUES ($ID,$NAME,$DRIVER)",{
+        $ID: req.id,
+        $NAME: req.name,
+        $DRIVER: req.driver
+    });
+});
+
+app.post('/api/checkRide',function(req,res){
+    var possibleDrivers = [];
+    req.friendIDS.forEach(function(id){
+        db.get("SELECT * FROM drivers WHERE ID=$ID",{
+            $ID: id
+        }, function(err,row){
+            if(!err){
+                possibleDrivers.push(row);
+            }
+        });
+    });
+    res.json(possibleDrivers);
 });
 
 
