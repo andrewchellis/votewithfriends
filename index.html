@@ -111,6 +111,8 @@ var pollingaddress = new Object();
             response.normalizedInput.state + ' ' +
             response.normalizedInput.zip;
         if (response.pollingLocations.length > 0) {
+        $("#step3").show();
+        $("#submitaddress").addClass("disabled");
           var pollingLocation = response.pollingLocations[0].address;
           pollingAddress = pollingLocation.locationName + ', ' +
               pollingLocation.line1 + ' ' +
@@ -173,8 +175,6 @@ var pollingaddress = new Object();
   * Initialize the API client and make a request.
   */
  function load() {
-   $("#step3").show();
-   $("#submitaddress").addClass("disabled");
    var address = autocomplete.getPlace();
    gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
    lookup(address.formatted_address, renderResults);
