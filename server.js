@@ -81,6 +81,15 @@ app.post('/api/friends/add',function(req,res){
 });
 
 app.post('/api/checkRide',function(req,res){
+    db.all("SELECT * FROM drivers",function(err,rows){
+        if(!err){
+            res.json(rows);
+        }
+        else{
+            console.log("Failed to get drivers");
+        }
+    });
+    /**
     var possibleDrivers = [];
     console.log(req.body);
     db.each("SELECT * FROM drivers WHERE POLLINGLOC=$LOC",{
@@ -88,12 +97,15 @@ app.post('/api/checkRide',function(req,res){
     },function(err,row){
         if(row!==undefined){
             if(req.body.friendIDS.indexOf(row.ID)>0){
-                possibleDrivers.push(row);
+                possibleDrivers+=row;
             }
         }
     },function(err,rows){
+        console.log(possibleDrivers);
         res.json(possibleDrivers);
     });
+    */
+
     /**
     db.all("SELECT * FROM drivers WHERE ID IN $IDS AND POLLINGLOC=$LOC",
     {$IDS: req.body.friendIDS,
