@@ -90,9 +90,12 @@ app.post('/api/friends/add',function(req,res){
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = []
     db.all("SELECT * FROM drivers",function(err,rows){
+	console.log(rows);
         if(!err){
             rows.forEach(function(row){
+		console.log(row);
                 if(row.POLLINGLOC===req.body.loc){
+			console.log(req.body);
                     if(req.body.friendIDS.length>0){
                         req.body.friendIDS.forEach(function(id){
                             if(id==row.ID){;
