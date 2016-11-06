@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var sqlite3 = require('sqlite3').verbose();
+var bodyParser = require('body-parser');
 var db = new sqlite3.Database('votewithfriends.db');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +24,7 @@ app.get('/googScripts.js',function(req,res){
 
 app.get('/googleAPI',function(req,res){
     console.log('Test googleapi');
-    res.sendFile(__dirname+'/findLocation.html');
+    res.sendFile(__dirname+'/getLocation.html');
 });
 
 app.post('/api/pollingLocations',function(req,res){
