@@ -81,13 +81,15 @@ app.post('/api/friends/add',function(req,res){
 });
 
 app.post('/api/checkRide',function(req,res){
-    var posibleDrivers = []
+    var possibleDrivers = []
     db.all("SELECT * FROM drivers",function(err,rows){
         if(!err){
             rows.forEach(function(row){
+                console.log("row"+row);
                 if(row.POLLINGLOC===req.body.loc){
                     console.log("Location match");
                     req.body.friendIDS.forEach(function(id){
+                        console.log(id":"row.ID);
                         if(id===row.ID){
                             console.log("ID match");
                             possibleDrivers.push(row);
