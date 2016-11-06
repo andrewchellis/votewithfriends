@@ -1,153 +1,183 @@
 <!DOCTYPE html>
 <html style="height:100%;">
-<head>
-    <!-- jquery --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    
-    <!-- materialize Compiled and minified CSS --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <head>
+        <!-- jquery --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-     <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-     <script src="googScripts.js"></script>
-     <script src="fbScripts.js"></script>
-</head>
+        <!-- materialize Compiled and minified CSS --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
- <script>
-  
+        <link rel="stylesheet" href="style.css">
+        <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        <script src="googScripts.js"></script>
+        <script src="fbScripts.js"></script>
+    </head>
+
+    <script>
+
 $(document).ready(function(){
 
     $('.section').hide();
     $('#header').show();
     $('#step1').show();
+    $('#step2').show();
+    $('#step3').show();
     $('.scrollspy').scrollSpy();
 });
 function loginworks() {
     $('#step2').show();
 }
+
+function dpress(){
+    $("#driver1").show();
+    $("#d, #f").addClass("disabled");  
+}
+
+function fpress(){
+    $("#friend1").show();
+    $("#d, #f").addClass("disabled");  
+}
 </script>
 
 
-  
-<body style="min-height:100%;" class="grey lighten-2 white-text">
-    <div class="container white" style="min-height:100%;" >
-    <header id="header" class="section">
-        <h1 class="center-align red-text">Vote With Friends</h1>
-    </header>
 
-    <main>
-    <div id="step1" class="section scrollspy">   
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card blue">
-            <div class="card-content">
-            <span class="card-title center-align">Log Into FaceBook</span>
-            <p>Vote With Friends connects you with your friends that will vote 
-            at the same polling location as you. Log into FaceBook below to get
-            started.</p>
-        <div class="fb-login-button"
-                style="width:50%; margin: 2em auto;" 
-                data-size="xlarge" 
-                data-show-faces="false"
-                data-scope="user_friends, public_profile"
-                onlogin="loginworks"
-                data-auto-logout-link="true"></div>
-        </div>
-        </div> <!--end card -->
-        </div>
-        </div>
-    </div> <!-- end step 1 -->
+    <body style="min-height:100%;" class="teal darken-2 white-text">
+        <div class="container" style="min-height:100%;" >
+            <header id="header" class="section">
+                <h1 class="center-align">Vote With Friends</h1>
+            </header>
 
-    <div id="step2" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card red">
-            <div class="card-content">
-            <span class="card-title center-align">Find Your Polling
-                Station</span>
-            <p>Type in your address in the search bar below:</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
+            <main>
+            <div id="step1" class="section scrollspy">   
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">
+                                    Log Into Facebook</span>
+                                <p>Vote With Friends helps you arrange rides 
+                                with your 
+                                friends that will vote at the same polling 
+                                location as you. Log into Facebook below to get
+                                started.</p>
+                                <div class="fb-login-button"
+                                     style="width:50%; margin: 2em auto;" 
+                                     data-size="xlarge" 
+                                     data-show-faces="false"
+                                     data-scope="user_friends, public_profile"
+                                     onlogin="loginworks()"
+                                     data-auto-logout-link="true"></div>
+                            </div>
+                        </div> <!--end card -->
+                    </div>
+                </div>
+            </div> <!-- end step 1 -->
 
-    </div> <!-- end of step2 -->
-    
-    
-    <div id="step3" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card blue">
-            <div class="card-content">
-            <span class="card-title center-align">Are You Driving?</span>
-            <p>Do you want to drive your friends, or are you looking for a
-            ride?</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
+            <div id="step2" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">
+                                    Find Your Polling Station</span>
+                                <p>Type in your address in the search bar 
+                                below:</p>
+                                <br>
+                                <div class="input-field">
+                                    <input id="address" type="text">
+                                    <label for="address">Address</label>
+                                </div>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
 
-    </div> <!-- end of step3 -->
-
-    <div id="driver1" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card red">
-            <div class="card-content">
-            <span class="card-title center-align">Driving Details?</span>
-            <p>When are you driving?</p>
-            <p>How many people are you willing to take?</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
-
-    </div> <!-- end of driver1 -->
+            </div> <!-- end of step2 -->
 
 
-    <div id="driver2" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card blue">
-            <div class="card-content">
-            <span class="card-title center-align">Notify Your Friends</span>
-            <p>Let your friends know that you can drive them to vote!</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
+            <div id="step3" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">Are You Driving?</span>
+                                <p>Do you want to be a driver, or do you need
+                                someone to take you to the polling station?</p>
+                                <br>
+                                <a class="waves-effect waves-light btn-large" 
+                                    id="f" onclick="return fpress();">
+                                I want to drive my friends.</a>
+                                <br><br>
+                                <a class="waves-effect waves-light btn-large" 
+                                    id="f" onclick="return dpress()">
+                                I am looking for a ride.</a>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
 
-    </div> <!-- end of driver2 -->
-    
-    <div id="friend1" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card red">
-            <div class="card-content">
-            <span class="card-title center-align">Join a Friend</span>
-            <p>Here's a list of your friends and when they're driving to the
-            polling station.</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
+            </div> <!-- end of step3 -->
 
-    </div> <!-- end of friend1 -->
-    
-    <div id="friend2" class="section scrollspy">
-        <div class="row">
-        <div class="col s12 m8 offset-m2">
-        <div class="card blue">
-            <div class="card-content">
-            <span class="card-title center-align">Notify Your Friends</span>
-            <p>Let your friends know that you're going to go vote!</p>
-            </div>
-        </div> <!-- end card -->
-        </div>
-        </div>
+            <div id="driver1" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">Driving Details?</span>
+                                <p>When are you driving?</p>
+                                <p>How many people are you willing to take?</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
 
-    </div> <!-- end of friend2 -->
-    </main>
+            </div> <!-- end of driver1 -->
 
-    <footer></footer>
-    </div>
-</body>
+
+            <div id="driver2" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">Notify Your Friends</span>
+                                <p>Let your friends know that you can drive them to vote!</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+
+            </div> <!-- end of driver2 -->
+
+            <div id="friend1" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">Join a Friend</span>
+                                <p>Here's a list of your friends and when they're driving to the
+                                polling station.</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+
+            </div> <!-- end of friend1 -->
+
+            <div id="friend2" class="section scrollspy">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card teal">
+                            <div class="card-content">
+                                <span class="card-title center-align">Notify Your Friends</span>
+                                <p>Let your friends know that you're going to go vote!</p>
+                            </div>
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+
+            </div> <!-- end of friend2 -->
+            </main>
+
+            <footer></footer>
+        </div>
+    </body>
 
 </html>

@@ -1,0 +1,39 @@
+/* label color */
+.input-field label {
+    color: white;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: white;
+}
+
+.input-field input[type=text]{
+    border-bottom: 1px solid white;
+    color: white;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 white;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 white;
+}
+/* invalid
+ * color
+ * */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 white;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: white;
+}
+
+
+.input-field input[type=checkbox checked=checked] {
+    color: white;
+}
