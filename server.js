@@ -86,11 +86,13 @@ app.post('/api/checkRide',function(req,res){
         if(!err){
             rows.forEach(function(row){
                 if(row.POLLINGLOC===req.body.loc){
-                    req.body.friendIDS.forEach(function(id){
-                        if(id==row.ID){;
-                            possibleDrivers.push(row);
-                        }
-                    });
+                    if(req.body.friendsIDS.length>0){
+                        req.body.friendIDS.forEach(function(id){
+                            if(id==row.ID){;
+                                possibleDrivers.push(row);
+                            }
+                        });
+                    }
                 }
             });
             res.json(possibleDrivers);
