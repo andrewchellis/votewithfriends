@@ -89,10 +89,12 @@ app.post('/api/checkRide',function(req,res){
             $LOC: req.body.loc
         }, function(err,row){
             if(!err){
+                console.log(row);
                 possibleDrivers.push(row);
             }
         });
     });
+    console.log(possibleDrivers);
     res.json(possibleDrivers);
 });
 
