@@ -1,14 +1,3 @@
-window.fbAsyncInit = function() {
-    FB.init({
-        appId      : '575836192623895',
-        xfbml      : true,
-        status:     true,
-        cookie:     true,
-        version    : 'v1.0'
-    });
-    console.log(FB);
-};
-
 (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
@@ -38,10 +27,6 @@ function statusChangeCallback(response) {
         'into Facebook.';
     }
   }
-
-FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-});
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
@@ -74,3 +59,18 @@ FB.getLoginStatus(function(response) {
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '575836192623895',
+        xfbml      : true,
+        status:     true,
+        cookie:     true,
+        version    : 'v1.0'
+    });
+    console.log(FB);
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+};
