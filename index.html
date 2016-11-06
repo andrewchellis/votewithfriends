@@ -41,14 +41,14 @@ function fpress(){
      .done(function( data ) {
          if(data.length === 0) {
              $("#radios").append("<p>We're sorry, none of your friends are" +
-                     "driving to that polling station. Please check back later!< /p>")
+                     "driving to that polling station. Please check back later!</p>")
              return;
          }
          var i = 0;
          data.forEach(function(dude) {
             i = i+1;
-            $("#radios").append("<p><input name='x' type='radio' id='r" + i + 
-                    "'><label class='white-text' for='r'" + i + "'>" + dude.NAME + " ,leaves at "
+            $("#radios").append("<p><input name='x' type='radio'  id='r" + i + 
+                    "'><label class='white-text' for='r" + i + "'>" + dude.NAME + " ,leaves at "
                     + dude.TIME + "</label></p>" );
          });
      });
