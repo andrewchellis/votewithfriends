@@ -8,6 +8,7 @@
       <input id="autocomplete" placeholder=
       "Enter your address where you are registered to vote" type="text"></input>
       <div id="results"></div>
+      <button type="button" onclick="load()">Click Me!</button>
     </div>
 
     <script>
@@ -45,7 +46,6 @@
                 ' (Did you register to vote from this address?)'));
         }
       }
-
       /**
        * Build and execute request to look up voter info for provided address.
        * @param {string} address Address for which to fetch voter info.
@@ -53,51 +53,44 @@
        *     response object as a parameter.
        */
        function lookup(address, callback) {
- +       /**
- +         * @type {number}
- +         */
- +        /**
- +         * Request object for given parameters.
- +         * @type {gapi.client.HttpRequest}
- +         */
- +          var req = gapi.client.request({
- +              'path' : '/civicinfo/v2/voterinfo',
- +              'params' : {'address' : address}
- +          });
- +          req.execute(callback);
- +      }
-
+       /**
+         * @type {number}
+         */
+        /**
+         * Request object for given parameters.
+         * @type {gapi.client.HttpRequest}
+         */
+          var req = gapi.client.request({
+              'path' : '/civicinfo/v2/voterinfo',
+              'params' : {'address' : address}
+          });
+          req.execute(callback);
+      }
       /**
        * Initialize the API client and make a request.
        */
-      function load(address) {
+      function load() {
+        var address = autocomplete.getPlace();
         gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
         lookup(address, renderResults);
       }
-
       // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.
-
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       var autocomplete;
-
       function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       // location types.
         autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
         {types: ['geocode']});
-
-        var address = autocomplete.getPlace();
-        load(address);
       }
-
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE&libraries=places&callback=initAutocomplete"
       async defer></script>
-    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
 
   </body>
 </html>
