@@ -86,7 +86,7 @@ app.post('/api/checkRide',function(req,res){
         if(!err){
             rows.forEach(function(row){
                 if(row.POLLINGLOC===req.body.loc){
-                    if(req.body.friendsIDS.length>0){
+                    if(req.body.friendIDS.length>0){
                         req.body.friendIDS.forEach(function(id){
                             if(id==row.ID){;
                                 possibleDrivers.push(row);
