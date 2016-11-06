@@ -9,7 +9,6 @@
         <!-- materialize Compiled and minified JavaScript --> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
         <script src="googScripts.js"></script>
         <script src="fbScripts.js"></script>
-    </head>
 
     <script>
 
@@ -22,6 +21,7 @@ $(document).ready(function(){
     $('#step3').show();
     $('.scrollspy').scrollSpy();
 });
+
 function loginworks() {
     $('#step2').show();
 }
@@ -35,9 +35,91 @@ function fpress(){
     $("#friend1").show();
     $("#d, #f").addClass("disabled");  
 }
+
+
+ /**
+  * Render results in the DOM.
+  * @param {Object} response Response object returned by the API.
+  * @param {Object} rawResponse Raw response from the API.
+  */
+  function renderResults(response, rawResponse) {
+    var el = document.getElementById('results');
+    if (!response || response.error) {
+      el.appendChild(document.createTextNode(
+        'Error while trying to fetch polling place'));
+        return;
+     }
+   var normalizedAddress = response.normalizedInput.line1 + ' ' +
+       response.normalizedInput.city + ', ' +
+       response.normalizedInput.state + ' ' +
+       response.normalizedInput.zip;
+   if (response.pollingLocations.length > 0) {
+     var pollingLocation = response.pollingLocations[0].address;
+     var pollingAddress = pollingLocation.locationName + ', ' +
+         pollingLocation.line1 + ' ' +
+         pollingLocation.city + ', ' +
+         pollingLocation.state + ' ' +
+         pollingLocation.zip;
+     var normEl = document.createElement('strong');
+     normEl.appendChild(document.createTextNode(
+         'Polling place for ' + normalizedAddress + ': '));
+     el.appendChild(normEl);
+     el.appendChild(document.createTextNode(pollingAddress));
+   } else {
+     el.appendChild(document.createTextNode(
+         'Could not find polling place for ' + normalizedAddress +
+           ' (Did you register to vote from this address?)'));
+   }
+ }
+ /**
+  * Build and execute request to look up voter info for provided address.
+  * @param {string} address Address for which to fetch voter info.
+  * @param {function(Object)} callback Function which takes the
+  *     response object as a parameter.
+  */
+  function lookup(address, callback) {
+  /**
+    * @type {number}
+    */
+   /**
+    * Request object for given parameters.
+    * @type {gapi.client.HttpRequest}
+    */
+     var req = gapi.client.request({
+         'path' : '/civicinfo/v2/voterinfo',
+         'params' : {'address' : address}
+     });
+     req.execute(callback);
+ }
+
+ /**
+  * Initialize the API client and make a request.
+  */
+ function load() {
+   var address = autocomplete.getPlace();
+   gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
+   lookup(address.formatted_address, renderResults);
+ }
+ // This example displays an address form, using the autocomplete feature
+ // of the Google Places API to help users fill in the information.
+ // This example requires the Places library. Include the libraries=places
+ // parameter when you first load the API. For example:
+ var autocomplete;
+ function initAutocomplete() {
+ // Create the autocomplete object, restricting the search to geographical
+ // location types.
+   autocomplete = new google.maps.places.Autocomplete(
+ /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+   {types: ['geocode']});
+ }
 </script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE&libraries=places&callback=initAutocomplete"
+      async defer></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+    </head>
 
+    
 
     <body style="min-height:100%;" class="teal darken-2 white-text">
         <div class="container" style="min-height:100%;" >
@@ -82,8 +164,11 @@ function fpress(){
                                 below:</p>
                                 <br>
                                 <div class="input-field">
-                                    <input id="address" type="text">
-                                    <label for="address">Address</label>
+                                    <input id="autocomplete" type="text">
+                                    <br>
+                                    <a class="waves-effect waves-light
+                                    btn-large" id="submitaddress"
+                                    onclick="return load()">Submit</a>
                                 </div>
                             </div>
                         </div> <!-- end card -->
@@ -103,11 +188,11 @@ function fpress(){
                                 someone to take you to the polling station?</p>
                                 <br>
                                 <a class="waves-effect waves-light btn-large" 
-                                    id="f" onclick="return fpress();">
+                                    id="f" onclick="return dpress();">
                                 I want to drive my friends.</a>
                                 <br><br>
                                 <a class="waves-effect waves-light btn-large" 
-                                    id="f" onclick="return dpress()">
+                                    id="f" onclick="return fpress()">
                                 I am looking for a ride.</a>
                             </div>
                         </div> <!-- end card -->
@@ -121,7 +206,8 @@ function fpress(){
                     <div class="col s12 m8 offset-m2">
                         <div class="card teal">
                             <div class="card-content">
-                                <span class="card-title center-align">Driving Details?</span>
+                                <span class="card-title center-align">Election
+                                Day Details</span>
                                 <p>When are you driving?</p>
                                 <p>How many people are you willing to take?</p>
                             </div>
