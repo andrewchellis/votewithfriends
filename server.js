@@ -75,7 +75,7 @@ app.post('/api/friends/add',function(req,res){
 
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = [];
-    for each(var id in req.friendIDs){
+    req.friendIDS.forEach(function(id){
         db.get("SELECT * FROM drivers WHERE ID=$ID",{
             $ID: id
         }, function(err,row){
@@ -83,7 +83,7 @@ app.post('/api/checkRide',function(req,res){
                 possibleDrivers.push(row);
             }
         });
-    }
+    });
     res.json(possibleDrivers);
 });
 
