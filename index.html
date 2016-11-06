@@ -17,7 +17,9 @@ $(document).ready(function(){
     $('.section').hide();
     $('#header').show();
     $('#step1').show();
+    $('#step2').show();
     $('.scrollspy').scrollSpy();
+    $('select').material_select();
 });
 
 function loginworks() {
@@ -34,6 +36,10 @@ function fpress(){
     $("#d, #f").addClass("disabled");  
 }
 
+function driversubmit() {
+    $("#driver2").show();
+    $("#dsub").addClass("disabled");
+}
 
  /**
   * Render results in the DOM.
@@ -95,6 +101,7 @@ function fpress(){
   */
  function load() {
    $("#step3").show();
+   $("#submitaddress").addClass("disabled");
    var address = autocomplete.getPlace();
    gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
    lookup(address.formatted_address, renderResults);
@@ -168,6 +175,7 @@ function fpress(){
                                     <a class="waves-effect waves-light
                                     btn-large" id="submitaddress"
                                     onclick="return load()">Submit</a>
+                                    <div id="results"></div>
                                 </div>
                             </div>
                         </div> <!-- end card -->
@@ -207,8 +215,63 @@ function fpress(){
                             <div class="card-content">
                                 <span class="card-title center-align">Election
                                 Day Details</span>
-                                <p>When are you driving?</p>
-                                <p>How many people are you willing to take?</p>
+                                <div class="input-field" id="drivertime">
+                                <select>
+                                <option value="" disabled selected>
+                                When are you driving?</option>
+                                <optgroup label="morning">
+                                <option value="0630">6:30 a.m.</option>
+                                <option value="0700">7:00 a.m.</option>
+                                <option value="0730">7:30 a.m.</option>
+                                <option value="0800">8:00 a.m.</option>
+                                <option value="0830">8:30 a.m.</option>
+                                <option value="0900">9:00 a.m.</option>
+                                <option value="0900">9:30 a.m.</option>
+                                <option value="1000">10:00 a.m.</option>
+                                <option value="1030">10:30 a.m.</option>
+                                <option value="1100">11:00 a.m.</option>
+                                <option value="1130">11:30 a.m.</option>
+                                </optgroup>
+                                <optgroup label="afternoon">
+                                <option value="1200">12:00 p.m.</option>
+                                <option value="1230">12:30 p.m.</option>
+                                <option value="1300">1:00 p.m.</option>
+                                <option value="1330">1:30 p.m.</option>
+                                <option value="1400">2:00 p.m.</option>
+                                <option value="1430">2:30 p.m.</option>
+                                <option value="1500">3:00 p.m.</option>
+                                <option value="1530">3:30 p.m.</option>
+                                <option value="1600">4:00 p.m.</option>
+                                <option value="1630">4:30 p.m.</option>
+                                </optgroup>
+                                <optgroup label="evening">
+                                <option value="1700">5:00 p.m.</option>
+                                <option value="1730">5:30 p.m.</option>
+                                <option value="1800">6:00 p.m.</option>
+                                <option value="1830">6:30 p.m.</option>
+                                </optgroup>
+                                </select>
+                                <label>Select a Time</label>
+                                </div>
+                                <br>
+
+                                <div class="input-field" id="driverspace">
+                                <select>
+                                <option value="" disabled selected>
+                                How many people are you willing to take?</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                </select>
+                                <label>Available Seats</label>
+                                </div>
+                                <br>
+                                <a class="waves-effect waves-light btn-large" 
+                                    id="dsub" onclick="return driversubmit();">
+                                Submit</a>
                             </div>
                         </div> <!-- end card -->
                     </div>
