@@ -83,6 +83,18 @@ app.post('/api/friends/add',function(req,res){
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = [];
     console.log(req.body);
+    db.each("SELECT * FROM drivers WHERE POLLINGLOC=$LOC",{
+        $LOC: req.body.loc
+    },function(err,row){
+        if(row!==undefined){
+            if(req.body.friendIDS.indexOf(row.ID)>0){
+                possibleDrivers.push(row);
+            }
+        }
+    },function(err,rows){
+        res.json(possibleDrivers);
+    });
+    /**
     db.all("SELECT * FROM drivers WHERE ID IN $IDS AND POLLINGLOC=$LOC",
     {$IDS: req.body.friendIDS,
         $LOC: req.body.loc
@@ -95,6 +107,7 @@ app.post('/api/checkRide',function(req,res){
         console.log(possibleDrivers);
         res.json(possibleDrivers);
     });
+    */
 });
 
 
