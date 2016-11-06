@@ -53,11 +53,11 @@ app.post('/api/drivers',function(req,res){
 
 app.post('/api/drivers/add',function(req,res){
     db.run("INSERT INTO drivers (ID, NAME, POLLINGLOC, TIME, SEATS) VALUES ($ID,$NAME,$POLLINGLOC,$TIME,$SEATS)",{
-        $ID: req.id,
-        $NAME: req.name,
-        $POLLINGLOC: req.loc,
-        $TIME: req.time,
-        $SEATS: req.seats
+        $ID: req.body.id,
+        $NAME: req.body.name,
+        $POLLINGLOC: req.body.loc,
+        $TIME: req.body.time,
+        $SEATS: req.body.seats
     },function(err){
         if(err){
             res.send("Failed to add row."+err);
@@ -74,15 +74,15 @@ app.post('/api/friends',function(req,res){
 
 app.post('/api/friends/add',function(req,res){
     db.run("INSERT OR IGNORE INTO friends (ID, NAME, DRIVER) VALUES ($ID,$NAME,$DRIVER)",{
-        $ID: req.id,
-        $NAME: req.name,
-        $DRIVER: req.driver
+        $ID: req.body.id,
+        $NAME: req.body.name,
+        $DRIVER: req.body.driver
     });
 });
 
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = [];
-    req.friendIDS.forEach(function(id){
+    req.body.friendIDS.forEach(function(id){
         db.get("SELECT * FROM drivers WHERE ID=$ID",{
             $ID: id
         }, function(err,row){
