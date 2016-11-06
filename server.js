@@ -22,22 +22,9 @@ app.get('/googScripts.js',function(req,res){
     res.sendFile(__dirname+'/googScripts.js');
 });
 
-app.get('/googleAPI',function(req,res){
-    console.log('Test googleapi');
-    res.sendFile(__dirname+'/getLocation.html');
-});
-
 app.get('/style.css',function(req,res){
     console.log('Load styles');
     res.sendFile(__dirname+'/style.css');
-});
-
-app.post('/api/pollingLocations',function(req,res){
-    res.send('List of pollingLocations');
-});
-
-app.post('/api/pollingLocations/add',function(req,res){
-    res.send('Add pollingLocations');
 });
 
 app.post('/api/drivers',function(req,res){
@@ -90,12 +77,9 @@ app.post('/api/friends/add',function(req,res){
 app.post('/api/checkRide',function(req,res){
     var possibleDrivers = []
     db.all("SELECT * FROM drivers",function(err,rows){
-	console.log(rows);
         if(!err){
             rows.forEach(function(row){
-		console.log(row);
                 if(row.POLLINGLOC===req.body.loc){
-			console.log(req.body);
                     if(req.body.friendIDS!==undefined){
                         req.body.friendIDS.forEach(function(id){
                             if(id==row.ID){;
@@ -103,9 +87,6 @@ app.post('/api/checkRide',function(req,res){
                             }
                         });
                     }
-			else{
-				res.json([]);
-			}
                 }
             });
             res.json(possibleDrivers);
