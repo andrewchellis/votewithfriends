@@ -27,6 +27,11 @@ app.get('/googleAPI',function(req,res){
     res.sendFile(__dirname+'/getLocation.html');
 });
 
+app,get('/style.css',function(req,res){
+    console.log('Load styles');
+    res.sendFile(__dirname+'/style.css');
+});
+
 app.post('/api/pollingLocations',function(req,res){
     res.send('List of pollingLocations');
 });
