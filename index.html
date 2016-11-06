@@ -42,8 +42,7 @@ function fpress(){
          var i = 0;
          data.forEach(function(dude) {
             i = i+1;
-            $("#radios").append("<p><input name='x' class='white-text' 
-                    type='radio' id='r" + i + 
+            $("#radios").append("<p><input name='x' type='radio' class='white-text' id='r" + i + 
                     "'><label for='r'" + i + "'>" + dude.NAME + " ,leaves at "
                     + dude.TIME + "</label></p>" );
          });
