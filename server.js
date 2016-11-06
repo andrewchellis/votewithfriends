@@ -81,9 +81,25 @@ app.post('/api/friends/add',function(req,res){
 });
 
 app.post('/api/checkRide',function(req,res){
+    var posibleDrivers = []
     db.all("SELECT * FROM drivers",function(err,rows){
         if(!err){
-            res.json(rows);
+            rows.forEach(function(row){
+                if(row.POLLINGLOC===req.body.loc){
+                    console.log("Location match");
+                    req.body.friendIDS.forEach(function(id){
+                        if(id===row.ID){
+                            console.log("ID match");
+                            possibleDrivers.push(row);
+                        }
+                    });
+                }
+            });
+            console.log("ROWS:");
+            console.log(rows);
+            console.log("DRIVERS:");
+            console.log(possibleDrivers);
+            res.json(possibleDrivers);
         }
         else{
             console.log("Failed to get drivers");
