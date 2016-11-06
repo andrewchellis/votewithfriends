@@ -9,6 +9,12 @@ app.get('/',function(req,res){
     console.log('Get request from '+req.ip);
     res.sendfile('index.html');
 });
+app.get('/fbScripts.js',function(req,res){
+    res.sendfile('fbScripts.js');
+});
+app.get('/googScripts.js',function(req,res){
+    res.sendfile('googScripts.js');
+});
 
 app.get('/googleAPI',function(req,res){
     res.sendfile('findLocation.html');
