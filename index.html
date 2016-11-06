@@ -17,8 +17,6 @@ $(document).ready(function(){
     $('.section').hide();
     $('#header').show();
     $('#step1').show();
-    $('#step2').show();
-    $('#step3').show();
     $('.scrollspy').scrollSpy();
 });
 
@@ -96,6 +94,7 @@ function fpress(){
   * Initialize the API client and make a request.
   */
  function load() {
+   $("#step3").show();
    var address = autocomplete.getPlace();
    gapi.client.setApiKey('AIzaSyAa1kEdRxD6kLiQgmEAt66nnOsDXsPnzBE');
    lookup(address.formatted_address, renderResults);
