@@ -1,7 +1,9 @@
 # Vote With Friends
 
 ## about
-Vote With Friends helps you arrange rides with your friends that will vote at the same polling location as you. We created this web-app for HackAE 2016.
+Vote With Friends helps you arrange rides with your friends that will vote at the same polling location as you. We created this web-app for HackAE 2016 where it won 3rd place.
+
+ [This project on Devpost](https://devpost.com/software/vote-with-friends-kmolu7)
 
 
 Vote With Friends will help people who cannot arrange transportation to their polling station during Election Day. We believe that this is the kind of technological change that matters: where we can help make their vote count.
@@ -24,7 +26,7 @@ If you're a driver, you can specify the time you are leaving and how many seats 
 * CSS
 * Javascript
 * JQuery
-* Materialize
+* Materializecss
 * Facebook Login API
 * Google Civic Information
 * Google Maps API
